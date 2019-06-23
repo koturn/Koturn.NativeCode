@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -126,7 +126,7 @@ namespace NativeCodeSharp
             if (!Kernel32.FlushInstructionCache(
                 Kernel32.GetCurrentProcess(),
                 addr,
-                new UIntPtr((uint)code.Length)))
+                (UIntPtr)code.Length))
             {
                 vam.Dispose();
                 ThrowMemoryOperationException("Failed to flush instruction code data with FlushInstructionCache.");
@@ -143,7 +143,7 @@ namespace NativeCodeSharp
         /// <returns><see cref="NativeMethodHandle{TDelegate}"/> instance that includes native code.</returns>
         /// <exception cref="ArgumentNullException">Throw when <paramref name="codeQuery"/> is null.</exception>
         /// <exception cref="MemoryOperationException">Throw when memory operation methods returns error.</exception>
-        public static NativeMethodHandle<TDelegate> CreateMethodHandle<TDelegate>(IEnumerable<byte> codeQuery)
+        public static NativeMethodHandle<TDelegate> Create<TDelegate>(IEnumerable<byte> codeQuery)
             where TDelegate : Delegate
         {
             if (codeQuery == null)

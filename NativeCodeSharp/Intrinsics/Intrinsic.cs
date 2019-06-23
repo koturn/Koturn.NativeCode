@@ -122,7 +122,7 @@ namespace NativeCodeSharp.Intrinsics
         /// <summary>
         /// Check if environment processor architecture is Intel or AMD.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True if your system is supported, otherwise false.</returns>
         private static bool IsSupportedArchitecture()
         {
             var systemInfo = default(SystemInfo);
