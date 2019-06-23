@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="NativeMethodCreatorTest.cs" />
+    <Compile Include="NativeMethodHandleTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

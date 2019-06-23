@@ -51,7 +51,6 @@
     <Compile Include="Intrinsics\CpuSimdFeature.cs" />
     <Compile Include="Intrinsics\Intrinsic.cs" />
     <Compile Include="Intrinsics\SimdUtil.cs" />
-    <Compile Include="NativeMethodCreator.cs" />
     <Compile Include="NativeMethodHandle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

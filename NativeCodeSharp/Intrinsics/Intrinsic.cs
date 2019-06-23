@@ -48,7 +48,7 @@ namespace NativeCodeSharp.Intrinsics
             {
                 ThrowPlatformNotSupportedException("cpuid support checking function is not supported on this architecture");
             }
-            return NativeMethodCreator.CreateMethodHandle<IsCpuIdSupportedDelegate>(Environment.Is64BitProcess
+            return NativeMethodHandle.Create<IsCpuIdSupportedDelegate>(Environment.Is64BitProcess
                 // bool __stdcall isCpuIdSupported(void);  // The return value type may be 64bit value such as long long int
                 ? new byte[]
                 {
@@ -221,7 +221,7 @@ namespace NativeCodeSharp.Intrinsics
             {
                 ThrowPlatformNotSupportedException("cpuid is not supported on this architecture");
             }
-            return NativeMethodCreator.CreateMethodHandle<TDelegate>(Environment.Is64BitProcess
+            return NativeMethodHandle.Create<TDelegate>(Environment.Is64BitProcess
                 // void __stdcall cpuid(int* cpuInfo, int eax, int ecx);
                 ? new byte[]
                 {
