@@ -127,7 +127,7 @@ namespace NativeCodeSharpTest
                     0x49, 0xc1, 0xe1, 0x02,                    // shl    r9,0x2
                     0x66, 0x2e, 0x0f, 0x1f, 0x84, 0x00, 0x00,  // nop    WORD PTR cs:[rax+rax*1+0x0]
                     0x00, 0x00, 0x00,
-                    // L3
+                    // L3:
                     0xf3, 0x0f, 0x10, 0x04, 0x02,              // movss  xmm0,DWORD PTR [rdx+rax*1]
                     0xf3, 0x41, 0x0f, 0x59, 0x04, 0x00,        // mulss  xmm0,DWORD PTR [r8+rax*1]
                     0xf3, 0x0f, 0x11, 0x04, 0x01,              // movss  DWORD PTR [rcx+rax*1],xmm0
@@ -179,7 +179,7 @@ namespace NativeCodeSharpTest
                     0x8d, 0x1c, 0xb3,                          // lea    ebx,[ebx+esi*4]
                     0x01, 0xf9,                                // add    ecx,edi
                     0x01, 0xfa,                                // add    edx,edi
-                    // L3
+                    // L3:
                     0xd9, 0x00,                                // fld    DWORD PTR [eax]
                     0x83, 0xc0, 0x04,                          // add    eax,0x4
                     0x83, 0xc1, 0x04,                          // add    ecx,0x4
