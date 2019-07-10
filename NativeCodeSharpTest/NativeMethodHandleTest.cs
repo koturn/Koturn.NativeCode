@@ -44,6 +44,36 @@ namespace NativeCodeSharpTest
         }
 
         /// <summary>
+        /// Test method for <see cref="NativeMethodHandle{TDelegate}.Clone"/>.
+        /// </summary>
+        [TestMethod]
+        public void Clone()
+        {
+            const int ArraySize = 32;
+            var src1 = new float[ArraySize];
+            var src2 = new float[ArraySize];
+            for (int i = 0; i < ArraySize; i++)
+            {
+                src1[i] = i;
+                src2[i] = i;
+            }
+
+            var dst = new float[ArraySize];
+
+            var mh1 = CreateInnerProductMethodHandle();
+            var mh2 = (NativeMethodHandle<InnerProductDelegate>)mh1.Clone();
+            mh1.Dispose();
+
+            mh2.Method(dst, src1, src2, dst.Length);
+
+            foreach (var e in dst)
+            {
+                Console.Write($"{e} ");
+            }
+        }
+
+
+        /// <summary>
         /// Calculate inner product of two <see cref="float"/> arrays.
         /// </summary>
         /// <param name="dst">Destination array</param>

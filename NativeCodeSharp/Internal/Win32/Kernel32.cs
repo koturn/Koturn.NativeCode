@@ -75,6 +75,16 @@ namespace NativeCodeSharp.Internal.Win32
         [return: MarshalAs(UnmanagedType.Bool)]
         [SuppressUnmanagedCodeSecurity]
         public static extern bool VirtualProtect(IntPtr address, UIntPtr size, MemoryProtectionType protectionType, out MemoryProtectionType oldProtectionType);
+
+        /// <summary>
+        /// Copy from an unmanaged memory to another unmanaged memory.
+        /// </summary>
+        /// <param name="dst">Destination pointer.</param>
+        /// <param name="src">Source pointer.</param>
+        /// <param name="size">Size of copying.</param>
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [SuppressUnmanagedCodeSecurity]
+        public static extern void CopyMemory(IntPtr dst, IntPtr src, int size);
     }
 
     /// <summary>

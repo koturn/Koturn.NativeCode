@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -13,7 +13,7 @@ namespace NativeCodeSharp
     /// Native method handle class
     /// </summary>
     /// <typeparam name="TDelegate">Handled method type</typeparam>
-    public sealed class NativeMethodHandle<TDelegate> : IDisposable
+    public sealed class NativeMethodHandle<TDelegate> : ICloneable, IDisposable
         where TDelegate : Delegate
     {
         #region Properties
@@ -21,6 +21,10 @@ namespace NativeCodeSharp
         /// Delegate for native code
         /// </summary>
         public TDelegate Method { get; private set; }
+        /// <summary>
+        /// Size of native code
+        /// </summary>
+        public int CodeSize { get; private set; }
         /// <summary>
         /// A flag property which indicates this instance is disposed or not.
         /// </summary>
@@ -39,13 +43,42 @@ namespace NativeCodeSharp
         /// Create native method dynamically
         /// </summary>
         /// <param name="unmanagedMemory">Unmanaged memory manager which contains natice code function</param>
-        internal NativeMethodHandle(VirtualAllocedMemory unmanagedMemory)
+        /// <param name="codeSize">Size of native code</param>
+        internal NativeMethodHandle(VirtualAllocedMemory unmanagedMemory, int codeSize)
         {
             Method = Marshal.GetDelegateForFunctionPointer(
                 unmanagedMemory.DangerousGetHandle(),
                 typeof(TDelegate)) as TDelegate;
+            CodeSize = codeSize;
             IsDisposed = false;
             _unmanagedMemory = unmanagedMemory;
+        }
+        #endregion
+
+        #region public methods
+        /// <summary>
+        /// <para>Create clone of this object.</para>
+        /// <para>Owned unmanaged memory is copy to another new allocated unmanaged memory.</para>
+        /// </summary>
+        /// <returns>clone of this object.</returns>
+        public object Clone()
+        {
+            var vam = Kernel32.VirtualAlloc(
+                IntPtr.Zero,
+                (UIntPtr)CodeSize,
+                VirtualAllocType.Commit,
+                MemoryProtectionType.ReadWrite);
+            if (vam.IsInvalid)
+            {
+                NativeMethodHandle.ThrowMemoryOperationException("Failed to allocate memory with VirtualAlloc.");
+            }
+            Kernel32.CopyMemory(
+                vam.DangerousGetHandle(),
+                _unmanagedMemory.DangerousGetHandle(),
+                CodeSize);
+            NativeMethodHandle.ChangeProtectionAndFlush(vam, CodeSize);
+
+            return new NativeMethodHandle<TDelegate>(vam, CodeSize);
         }
         #endregion
 
@@ -107,32 +140,10 @@ namespace NativeCodeSharp
             {
                 ThrowMemoryOperationException("Failed to allocate memory with VirtualAlloc.");
             }
-            var addr = vam.DangerousGetHandle();
-            Marshal.Copy(code, 0, addr, code.Length);
+            Marshal.Copy(code, 0, vam.DangerousGetHandle(), code.Length);
+            ChangeProtectionAndFlush(vam, code.Length);
 
-            // Give executable permission to unmanaged memroy.
-            if (!Kernel32.VirtualProtect(
-                addr,
-                (UIntPtr)code.Length,
-                MemoryProtectionType.Execute,
-                out _))
-            {
-                vam.Dispose();
-                ThrowMemoryOperationException("Failed to give executable permission with VirtualProtect.");
-            }
-
-            // GetCurrentProcess returns a pseudo handle.
-            // You need not to free a pseudo handle by ClodeHandle.
-            if (!Kernel32.FlushInstructionCache(
-                Kernel32.GetCurrentProcess(),
-                addr,
-                (UIntPtr)code.Length))
-            {
-                vam.Dispose();
-                ThrowMemoryOperationException("Failed to flush instruction code data with FlushInstructionCache.");
-            }
-
-            return new NativeMethodHandle<TDelegate>(vam);
+            return new NativeMethodHandle<TDelegate>(vam, code.Length);
         }
 
         /// <summary>
@@ -154,6 +165,38 @@ namespace NativeCodeSharp
         }
 
         /// <summary>
+        /// Change protection type of vartual allocated memory and flush cache.
+        /// </summary>
+        /// <param name="vam">Memory handle allocated by <see cref="Kernel32.VirtualAlloc"/>.</param>
+        /// <param name="codeSize">Size of native code.</param>
+        internal static void ChangeProtectionAndFlush(VirtualAllocedMemory vam, int codeSize)
+        {
+            var addr = vam.DangerousGetHandle();
+
+            // Give executable permission to unmanaged memroy.
+            if (!Kernel32.VirtualProtect(
+                addr,
+                (UIntPtr)codeSize,
+                MemoryProtectionType.Execute,
+                out _))
+            {
+                vam.Dispose();
+                ThrowMemoryOperationException("Failed to give executable permission with VirtualProtect.");
+            }
+
+            // GetCurrentProcess returns a pseudo handle.
+            // You need not to free a pseudo handle by ClodeHandle.
+            if (!Kernel32.FlushInstructionCache(
+                Kernel32.GetCurrentProcess(),
+                addr,
+                (UIntPtr)codeSize))
+            {
+                vam.Dispose();
+                ThrowMemoryOperationException("Failed to flush instruction code data with FlushInstructionCache.");
+            }
+        }
+
+        /// <summary>
         /// Throw <see cref="ArgumentNullException"/>.
         /// </summary>
         /// <param name="paramName">A parameter name.</param>
@@ -166,7 +209,7 @@ namespace NativeCodeSharp
         /// Throw <see cref="MemoryOperationException"/>.
         /// </summary>
         /// <param name="message">Exception message.</param>
-        private static void ThrowMemoryOperationException(string message)
+        internal static void ThrowMemoryOperationException(string message)
         {
             throw new MemoryOperationException(message);
         }
