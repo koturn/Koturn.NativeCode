@@ -215,7 +215,7 @@ namespace NativeCodeSharp.Intrinsics
         /// <returns>Method handle of cpuid.</returns>
         /// <exception cref="PlatformNotSupportedException">Throw when processor architecture is not x64 nor x86.</exception>
         private static NativeMethodHandle<TDelegate> CreateCpuIdMethodHandle<TDelegate>()
-            where TDelegate : Delegate
+            where TDelegate : class
         {
             if (!IsSupportedArchitecture())
             {

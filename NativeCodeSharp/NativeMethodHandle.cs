@@ -14,7 +14,7 @@ namespace NativeCodeSharp
     /// </summary>
     /// <typeparam name="TDelegate">Handled method type</typeparam>
     public sealed class NativeMethodHandle<TDelegate> : ICloneable, IDisposable
-        where TDelegate : Delegate
+        where TDelegate : class
     {
         #region Properties
         /// <summary>
@@ -125,7 +125,7 @@ namespace NativeCodeSharp
         /// <exception cref="ArgumentNullException">Throw when <paramref name="code"/> is null.</exception>
         /// <exception cref="MemoryOperationException">Throw when memory operation methods returns error.</exception>
         public static NativeMethodHandle<TDelegate> Create<TDelegate>(byte[] code)
-            where TDelegate : Delegate
+            where TDelegate : class
         {
             if (code == null)
             {
@@ -143,7 +143,15 @@ namespace NativeCodeSharp
             Marshal.Copy(code, 0, vam.DangerousGetHandle(), code.Length);
             ChangeProtectionAndFlush(vam, code.Length);
 
-            return new NativeMethodHandle<TDelegate>(vam, code.Length);
+            try
+            {
+                return new NativeMethodHandle<TDelegate>(vam, code.Length);
+            }
+            catch
+            {
+                vam.Dispose();
+                throw;
+            }
         }
 
         /// <summary>
@@ -155,7 +163,7 @@ namespace NativeCodeSharp
         /// <exception cref="ArgumentNullException">Throw when <paramref name="codeQuery"/> is null.</exception>
         /// <exception cref="MemoryOperationException">Throw when memory operation methods returns error.</exception>
         public static NativeMethodHandle<TDelegate> Create<TDelegate>(IEnumerable<byte> codeQuery)
-            where TDelegate : Delegate
+            where TDelegate : class
         {
             if (codeQuery == null)
             {
