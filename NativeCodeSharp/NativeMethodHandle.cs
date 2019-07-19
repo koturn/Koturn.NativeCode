@@ -182,11 +182,12 @@ namespace NativeCodeSharp
             var addr = vam.DangerousGetHandle();
 
             // Give executable permission to unmanaged memroy.
+            MemoryProtectionType oldProtectionType;
             if (!Kernel32.VirtualProtect(
                 addr,
                 (UIntPtr)codeSize,
                 MemoryProtectionType.Execute,
-                out _))
+                out oldProtectionType))
             {
                 vam.Dispose();
                 ThrowMemoryOperationException("Failed to give executable permission with VirtualProtect.");
