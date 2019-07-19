@@ -20,11 +20,11 @@ namespace NativeCodeSharp
         /// <summary>
         /// Delegate for native code
         /// </summary>
-        public TDelegate Method { get; }
+        public TDelegate Method { get; private set; }
         /// <summary>
         /// Size of native code
         /// </summary>
-        public int CodeSize { get; }
+        public int CodeSize { get; private set; }
         /// <summary>
         /// A flag property which indicates this instance is disposed or not.
         /// </summary>
