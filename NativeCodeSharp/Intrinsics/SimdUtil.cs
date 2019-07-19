@@ -13,7 +13,8 @@
         {
             using (var cpuIdMethodHandle = Intrinsic.CreateCpuIdMethodHandle())
             {
-                cpuIdMethodHandle.Method(out CpuInfo cpuInfo, 1);
+                CpuInfo cpuInfo;
+                cpuIdMethodHandle.Method(out cpuInfo, 1);
 
                 var cpuFeature = default(CpuSimdFeature);
                 cpuFeature.HasMmx = (cpuInfo.Edx & (1U << 23)) != 0U;
