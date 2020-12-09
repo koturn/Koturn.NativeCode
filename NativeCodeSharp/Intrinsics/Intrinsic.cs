@@ -104,8 +104,7 @@ namespace NativeCodeSharp.Intrinsics
             {
                 _cpuIdHandle = CreateCpuIdMethodHandle();
             }
-            var cpuInfo = default(CpuInfo);
-            _cpuIdHandle.Method(out cpuInfo, eax, ecx);
+            _cpuIdHandle.Method(out var cpuInfo, eax, ecx);
             return cpuInfo;
         }
 
@@ -125,8 +124,7 @@ namespace NativeCodeSharp.Intrinsics
         /// <returns>True if your system is supported, otherwise false.</returns>
         private static bool IsSupportedArchitecture()
         {
-            var systemInfo = default(SystemInfo);
-            Kernel32.GetSystemInfo(out systemInfo);
+            Kernel32.GetSystemInfo(out var systemInfo);
             return systemInfo.ProcessorArchitecture == ProcessorArchitecture.Intel
                 || systemInfo.ProcessorArchitecture == ProcessorArchitecture.Amd64;
         }
