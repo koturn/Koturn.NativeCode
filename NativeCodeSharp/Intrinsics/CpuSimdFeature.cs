@@ -364,7 +364,7 @@ namespace NativeCodeSharp.Intrinsics
         /// <returns>Return <c>true</c> if <paramref name="obj"/> is an object equivalent to this object, otherwise <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
-            return obj != null && obj is CpuSimdFeature && Equals((CpuSimdFeature)obj);
+            return obj != null && obj is CpuSimdFeature feature && Equals(feature);
         }
 
         /// <summary>
