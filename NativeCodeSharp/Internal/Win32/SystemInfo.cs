@@ -18,7 +18,7 @@ namespace NativeCodeSharp.Internal.Win32
         /// <summary>
         /// This member is reserved for future use.
         /// </summary>
-        private ushort _reserved;
+        private readonly ushort _reserved;
         /// <summary>
         /// <para>The page size and the granularity of page protection and commitment.</para>
         /// <para>This is the page size used by the VirtualAlloc function.</para>
