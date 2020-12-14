@@ -6,25 +6,25 @@ namespace NativeCodeSharp.Intrinsics
     /// <summary>
     /// Structure for cpuid
     /// </summary>
-    [StructLayout(LayoutKind.Sequential, Pack = 4)]
+    [StructLayout(LayoutKind.Sequential, Pack = sizeof(uint))]
     public struct CpuInfo
     {
         /// <summary>
-        /// Eax value which is Input/Output parameter for cpuid
+        /// Eax value which is output parameter for cpuid
         /// </summary>
-        public uint Eax { get; set; }
+        public uint Eax { get; }
         /// <summary>
-        /// Eax value which is Input/Output parameter for cpuid
+        /// Eax value which is output parameter for cpuid
         /// </summary>
-        public uint Ebx { get; set; }
+        public uint Ebx { get; }
         /// <summary>
-        /// Ecx value which is Input/Output parameter for cpuid
+        /// Ecx value which is putput parameter for cpuid
         /// </summary>
-        public uint Ecx { get; set; }
+        public uint Ecx { get; }
         /// <summary>
-        /// Edx value which is Input/Output parameter for cpuid
+        /// Edx value which is putput parameter for cpuid
         /// </summary>
-        public uint Edx { get; set; }
+        public uint Edx { get; }
         /// <summary>
         /// Stringify all member values.
         /// </summary>

@@ -4,7 +4,9 @@ using System.Runtime.Serialization;
 
 namespace NativeCodeSharp.Exceptions
 {
-
+    /// <summary>
+    /// An exception class for memory operation.
+    /// </summary>
     [Serializable]
     public class MemoryOperationException : Exception
     {

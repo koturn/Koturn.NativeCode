@@ -8,7 +8,7 @@ namespace NativeCodeSharp.Internal.Win32
     /// <para>Contains information about the current computer system.</para>
     /// <para>This includes the architecture and type of the processor, the number of processors in the system, the page size, and other such information.</para>
     /// </summary>
-    [StructLayout(LayoutKind.Sequential, Pack = 2)]
+    [StructLayout(LayoutKind.Sequential, Pack = sizeof(ushort))]
     internal struct SystemInfo
     {
         /// <summary>
@@ -39,23 +39,24 @@ namespace NativeCodeSharp.Internal.Win32
         public IntPtr ActiveProcessorMask { get; }
         /// <summary>
         /// <para>The number of logical processors in the current group.</para>
-        /// <para>To retrieve this value, use the GetLogicalProcessorInformation function.</para>
+        /// <para>To retrieve this value, use the <c>GetLogicalProcessorInformation</c> function.</para>
         /// </summary>
         public uint NumberOfProcessors { get; }
         /// <summary>
         /// <para>An obsolete member that is retained for compatibility.</para>
-        /// <para>Use the wProcessorArchitecture, wProcessorLevel, and wProcessorRevision members to determine the type of processor.</para>
+        /// <para>Use the <see cref="ProcessorArchitecture"/>, <see cref="ProcessorLevel"/>, and <see cref="ProcessorRevision"/> members
+        /// to determine the type of processor.</para>
         /// </summary>
         public ProcessorType ProcessorType { get; }
         /// <summary>
         /// <para>The granularity for the starting address at which virtual memory can be allocated.</para>
-        /// <para>For more information, see VirtualAlloc.</para>
+        /// <para>For more information, see <see cref="Kernel32.VirtualAlloc(IntPtr, UIntPtr, VirtualAllocType, MemoryProtectionType)"/>.</para>
         /// </summary>
         public uint AllocationGranularity { get; }
         /// <summary>
         /// <para>The architecture-dependent processor level.</para>
         /// <para> It should be used only for display purposes.</para>
-        /// <para>To determine the feature set of a processor, use the IsProcessorFeaturePresent function.</para>
+        /// <para>To determine the feature set of a processor, use the <c>IsProcessorFeaturePresent</c> function.</para>
         /// </summary>
         public ushort ProcessorLevel { get; }
         /// <summary>
