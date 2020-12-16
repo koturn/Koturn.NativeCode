@@ -47,6 +47,7 @@ namespace NativeCodeSharp.Internal.Win32
         /// <para>Use the <see cref="ProcessorArchitecture"/>, <see cref="ProcessorLevel"/>, and <see cref="ProcessorRevision"/> members
         /// to determine the type of processor.</para>
         /// </summary>
+        [Obsolete("Retained for compatibility")]
         public ProcessorType ProcessorType { get; }
         /// <summary>
         /// <para>The granularity for the starting address at which virtual memory can be allocated.</para>
@@ -62,6 +63,27 @@ namespace NativeCodeSharp.Internal.Win32
         /// <summary>
         /// <para>The architecture-dependent processor revision.</para>
         /// <para>The following table shows how the revision value is assembled for each type of processor architecture.</para>
+        /// <list type="table">
+        ///   <listheader>
+        ///     <term>Processor</term>
+        ///     <description>Value</description>
+        ///   </listheader>
+        ///   <item>
+        ///     <term>Intel Pentium, Cyrix, or NextGen 586</term>
+        ///     <description>The high byte is the model and the low byte is the stepping.
+        ///       For example, if the value is xxyy, the model number and stepping can be displayed as follows: Model xx, Stepping yy.</description>
+        ///   </item>
+        ///   <item>
+        ///     <term>Intel 80386 or 80486</term>
+        ///     <description>A value of the form xxyz.
+        ///       If xx is equal to 0xFF, y - 0xA is the model number, and z is the stepping identifier.
+        ///       If xx is not equal to 0xFF, xx + 'A' is the stepping letter and yz is the minor stepping.</description>
+        ///   </item>
+        ///   <item>
+        ///     <term>ARM</term>
+        ///     <description>Reserved.</description>
+        ///   </item>
+        /// </list>
         /// </summary>
         public ushort ProcessorRevision { get; }
     }

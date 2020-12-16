@@ -144,8 +144,7 @@ namespace NativeCodeSharp.Intrinsics
         /// Get CPU vendor ID.
         /// </summary>
         /// <returns>CPU vendor ID</returns>
-        public static unsafe string
-        GetCpuVendorId()
+        public static unsafe string GetCpuVendorId()
         {
             using (var mh = CreateCpuIdMethodHandle<UnsafeCpuIdDelegate>())
             {
@@ -162,8 +161,7 @@ namespace NativeCodeSharp.Intrinsics
         /// Get processor brand string.
         /// </summary>
         /// <returns>Processor brand string</returns>
-        public static unsafe string
-        GetCpuBrandString()
+        public static unsafe string GetCpuBrandString()
         {
             using (var mh = CreateCpuIdMethodHandle<UnsafeCpuIdDelegate>())
             {
