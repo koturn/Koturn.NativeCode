@@ -1,6 +1,8 @@
 NativeCodeSharp
 ===============
 
+[![Test status](https://ci.appveyor.com/api/projects/status/g1w933v2l517ap7q?svg=true)](https://ci.appveyor.com/project/koturn/nativecodesharp "AppVeyor | koturn/NativeCodeSharp")
+
 Native code method generator for .NET Framework.
 
 
@@ -201,6 +203,14 @@ namespace NativeCodeSharpMain
         }
     }
 }
+```
+
+
+## Build
+
+```shell
+> msbuild /nologo /m /t:restore /p:Configuration=Release;Platform="Any CPU" NativeCodeSharp.sln
+> msbuild /nologo /m /p:Configuration=Release;Platform="Any CPU" NativeCodeSharp.sln
 ```
 
 

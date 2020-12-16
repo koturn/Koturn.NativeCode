@@ -1,0 +1,22 @@
+version: 1.0.{build}
+image: Visual Studio 2019
+install:
+- cmd: '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"'
+build_script:
+- cmd: >-
+    nuget restore
+
+    msbuild /nologo /m /p:Configuration=Release;Platform="Any CPU" NativeCodeSharp.sln
+
+    mkdir Artifacts\NativeCodeSharp
+
+    copy NativeCodeSharp\bin\Release\netstandard2.0\NativeCodeSharp.dll Artifacts\NativeCodeSharp\
+
+    copy NativeCodeSharp\bin\Release\netstandard2.0\NativeCodeSharp.pdb Artifacts\NativeCodeSharp\
+
+    cd Artifacts
+
+    7z a -mx=9 -r NativeCodeSharp.zip NativeCodeSharp\
+artifacts:
+- path: Artifacts\NativeCodeSharp.zip
+  name: NativeCodeSharp
