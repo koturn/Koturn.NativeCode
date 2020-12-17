@@ -131,7 +131,7 @@ namespace NativeCodeSharp
         {
             if (code == null)
             {
-                ThrowArgumentNullException("code");
+                ThrowArgumentNullException(nameof(code));
             }
             var vam = Kernel32.VirtualAlloc(
                 IntPtr.Zero,
@@ -161,7 +161,7 @@ namespace NativeCodeSharp
         {
             if (codeQuery == null)
             {
-                ThrowArgumentNullException("codeQuery");
+                ThrowArgumentNullException(nameof(codeQuery));
             }
             return Create<TDelegate>(codeQuery.ToArray());
         }
