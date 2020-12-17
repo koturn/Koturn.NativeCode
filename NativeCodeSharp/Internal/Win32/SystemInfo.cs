@@ -9,7 +9,7 @@ namespace NativeCodeSharp.Internal.Win32
     /// <para>This includes the architecture and type of the processor, the number of processors in the system, the page size, and other such information.</para>
     /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = sizeof(ushort))]
-    internal struct SystemInfo
+    internal readonly struct SystemInfo
     {
         /// <summary>
         /// The processor architecture of the installed operating system.
