@@ -129,7 +129,7 @@ namespace NativeCodeSharp
         public static NativeMethodHandle<TDelegate> Create<TDelegate>(byte[] code)
             where TDelegate : Delegate
         {
-            if (code == null)
+            if (code is null)
             {
                 ThrowArgumentNullException(nameof(code));
             }
@@ -159,7 +159,7 @@ namespace NativeCodeSharp
         public static NativeMethodHandle<TDelegate> Create<TDelegate>(IEnumerable<byte> codeQuery)
             where TDelegate : Delegate
         {
-            if (codeQuery == null)
+            if (codeQuery is null)
             {
                 ThrowArgumentNullException(nameof(codeQuery));
             }

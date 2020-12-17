@@ -100,7 +100,7 @@ namespace NativeCodeSharp.Intrinsics
         /// <returns>Result of cpuid</returns>
         public static CpuInfo CpuId(uint eax, uint ecx = 0)
         {
-            if (_cpuIdHandle == null)
+            if (_cpuIdHandle is null)
             {
                 _cpuIdHandle = CreateCpuIdMethodHandle();
             }
