@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 
 
@@ -8,7 +9,7 @@ namespace NativeCodeSharp.Exceptions
     /// An exception class for memory operation.
     /// </summary>
     [Serializable]
-    public class MemoryOperationException : Exception
+    public class MemoryOperationException : Win32Exception
     {
         /// <summary>
         /// Initializes a new instance of the System.Exception class.
@@ -18,11 +19,30 @@ namespace NativeCodeSharp.Exceptions
         }
 
         /// <summary>
-        /// Initializes a new instance of the System.Exception class with a specified error message.
+        /// Initializes a new instance of the <see cref="Exception"/> with a specified error code.
+        /// </summary>
+        /// <param name="error">An error code of Win32 API,</param>
+        public MemoryOperationException(int error)
+            : base(error)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Exception"/> class with a specified error message.
         /// </summary>
         /// <param name="message">The message that describes the error.</param>
         public MemoryOperationException(string message)
             : base(message)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Exception"/> with a specified error code and message.
+        /// </summary>
+        /// <param name="error">An error code of Win32 API,</param>
+        /// <param name="message">The message that describes the error.</param>
+        public MemoryOperationException(int error, string message)
+            : base(error, message)
         {
         }
 

@@ -70,7 +70,9 @@ namespace NativeCodeSharp
                 MemoryProtectionType.ReadWrite);
             if (vam.IsInvalid)
             {
-                NativeMethodHandle.ThrowMemoryOperationException("Failed to allocate memory with VirtualAlloc.");
+                NativeMethodHandle.ThrowMemoryOperationException(
+                    Marshal.GetLastWin32Error(),
+                    "Failed to allocate memory with VirtualAlloc.");
             }
             Kernel32.CopyMemory(
                 vam.DangerousGetHandle(),
@@ -138,7 +140,7 @@ namespace NativeCodeSharp
                 MemoryProtectionType.ReadWrite);
             if (vam.IsInvalid)
             {
-                ThrowMemoryOperationException("Failed to allocate memory with VirtualAlloc.");
+                ThrowMemoryOperationException(Marshal.GetLastWin32Error(), "Failed to allocate memory with VirtualAlloc.");
             }
             Marshal.Copy(code, 0, vam.DangerousGetHandle(), code.Length);
             ChangeProtectionAndFlush(vam, code.Length);
@@ -180,8 +182,9 @@ namespace NativeCodeSharp
                 MemoryProtectionType.Execute,
                 out _))
             {
+                var error = Marshal.GetLastWin32Error();
                 vam.Dispose();
-                ThrowMemoryOperationException("Failed to give executable permission with VirtualProtect.");
+                ThrowMemoryOperationException(error, "Failed to give executable permission with VirtualProtect.");
             }
 
             // GetCurrentProcess returns a pseudo handle.
@@ -191,8 +194,9 @@ namespace NativeCodeSharp
                 addr,
                 (UIntPtr)codeSize))
             {
+                var error = Marshal.GetLastWin32Error();
                 vam.Dispose();
-                ThrowMemoryOperationException("Failed to flush instruction code data with FlushInstructionCache.");
+                ThrowMemoryOperationException(error, "Failed to flush instruction code data with FlushInstructionCache.");
             }
         }
 
@@ -208,10 +212,11 @@ namespace NativeCodeSharp
         /// <summary>
         /// Throw <see cref="MemoryOperationException"/>.
         /// </summary>
+        /// <param name="error">An error code obrained by <see cref="Marshal.GetLastWin32Error()"/>.</param>
         /// <param name="message">Exception message.</param>
-        internal static void ThrowMemoryOperationException(string message)
+        internal static void ThrowMemoryOperationException(int error, string message)
         {
-            throw new MemoryOperationException(message);
+            throw new MemoryOperationException(error, message);
         }
     }
 }
