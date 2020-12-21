@@ -1,7 +1,7 @@
 NativeCodeSharp
 ===============
 
-[![Test status](https://ci.appveyor.com/api/projects/status/g1w933v2l517ap7q?svg=true)](https://ci.appveyor.com/project/koturn/nativecodesharp "AppVeyor | koturn/NativeCodeSharp")
+[![Test status](https://ci.appveyor.com/api/projects/status/g1w933v2l517ap7q/branch/main?svg=true)](https://ci.appveyor.com/project/koturn/nativecodesharp "AppVeyor | koturn/NativeCodeSharp")
 
 Native code method generator for .NET Framework.
 
