@@ -90,7 +90,7 @@ namespace NativeCodeSharp.Intrinsics
         /// <summary>
         /// cpuid method handle cache
         /// </summary>
-        private static NativeMethodHandle<CpuIdDelegate> _cpuIdHandle;
+        private static NativeMethodHandle<CpuIdDelegate>? _cpuIdHandle;
 
         /// <summary>
         /// Execute cpuid instruction.
@@ -100,10 +100,7 @@ namespace NativeCodeSharp.Intrinsics
         /// <returns>Result of cpuid</returns>
         public static CpuInfo CpuId(uint eax, uint ecx = 0)
         {
-            if (_cpuIdHandle is null)
-            {
-                _cpuIdHandle = CreateCpuIdMethodHandle();
-            }
+            _cpuIdHandle ??= CreateCpuIdMethodHandle();
             _cpuIdHandle.Method(out var cpuInfo, eax, ecx);
             return cpuInfo;
         }

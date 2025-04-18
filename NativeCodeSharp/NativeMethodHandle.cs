@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.InteropServices;
 
@@ -46,9 +47,9 @@ namespace NativeCodeSharp
         /// <param name="codeSize">Size of native code</param>
         internal NativeMethodHandle(VirtualAllocedMemory unmanagedMemory, int codeSize)
         {
-            Method = Marshal.GetDelegateForFunctionPointer(
+            Method = (TDelegate)Marshal.GetDelegateForFunctionPointer(
                 unmanagedMemory.DangerousGetHandle(),
-                typeof(TDelegate)) as TDelegate;
+                typeof(TDelegate));
             CodeSize = codeSize;
             IsDisposed = false;
             _unmanagedMemory = unmanagedMemory;
@@ -204,6 +205,7 @@ namespace NativeCodeSharp
         /// Throw <see cref="ArgumentNullException"/>.
         /// </summary>
         /// <param name="paramName">A parameter name.</param>
+        [DoesNotReturn]
         private static void ThrowArgumentNullException(string paramName)
         {
             throw new ArgumentNullException(paramName);
