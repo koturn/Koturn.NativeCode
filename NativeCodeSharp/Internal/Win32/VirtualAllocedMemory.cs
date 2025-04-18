@@ -8,7 +8,6 @@ namespace NativeCodeSharp.Internal.Win32
     /// <summary>
     /// <see cref="SafeHandle"/> for a memory which allocated with VirtualAlloc.
     /// </summary>
-    [SecurityPermission(SecurityAction.LinkDemand, UnmanagedCode = true)]
     internal sealed class VirtualAllocedMemory : SafeHandle
     {
         /// <summary>
