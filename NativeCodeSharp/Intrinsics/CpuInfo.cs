@@ -29,7 +29,7 @@ namespace NativeCodeSharp.Intrinsics
         /// Stringify all member values.
         /// </summary>
         /// <returns>Stringified all member values.</returns>
-        public override string ToString()
+        public override readonly string ToString()
         {
             return string.Format("(eax, ebx, ecx, edx) = (0x{0:X8}, 0x{1:X8}, 0x{2:X8}, 0x{3:X8})", Eax, Ebx, Ecx, Edx);
         }
