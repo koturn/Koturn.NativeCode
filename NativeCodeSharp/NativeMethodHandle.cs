@@ -164,7 +164,7 @@ namespace NativeCodeSharp
             {
                 ThrowArgumentNullException(nameof(codeQuery));
             }
-            return Create<TDelegate>(codeQuery.ToArray());
+            return Create<TDelegate>([.. codeQuery]);
         }
 
         /// <summary>

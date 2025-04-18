@@ -50,8 +50,8 @@ namespace NativeCodeSharp.Intrinsics
             }
             return NativeMethodHandle.Create<IsCpuIdSupportedDelegate>(Environment.Is64BitProcess
                 // bool __stdcall isCpuIdSupported(void);  // The return value type may be 64bit value such as long long int
-                ? new byte[]
-                {
+                ?
+                [
                     0x9c,                                // pushfq
                     0x9c,                                // pushfq
                     0x58,                                // pop     rax
@@ -65,10 +65,10 @@ namespace NativeCodeSharp.Intrinsics
                     0x48, 0xc1, 0xe8, 0x15,              // shr     rax,21
                     0x9d,                                // popfq
                     0xc3                                 // ret
-                }
+                ]
                 // bool __stdcall isCpuIdSupported(void);  // The return value type may be 32bit value such as int
-                : new byte[]
-                {
+                :
+                [
                     0x9c,                          // pushf
                     0x9c,                          // pushf
                     0x58,                          // pop    eax
@@ -82,7 +82,7 @@ namespace NativeCodeSharp.Intrinsics
                     0xc1, 0xe8, 0x15,              // shr    eax,21
                     0x9d,                          // popf
                     0xc3,                          // ret
-                });
+                ]);
         }
         #endregion
 
@@ -216,8 +216,8 @@ namespace NativeCodeSharp.Intrinsics
             }
             return NativeMethodHandle.Create<TDelegate>(Environment.Is64BitProcess
                 // void __stdcall cpuid(int* cpuInfo, int eax, int ecx);
-                ? new byte[]
-                {
+                ?
+                [
                     0x53,                    // push   rbx
                     0x49, 0x89, 0xc9,        // mov    r9,rcx
                     0x89, 0xd0,              // mov    eax,edx
@@ -229,10 +229,10 @@ namespace NativeCodeSharp.Intrinsics
                     0x41, 0x89, 0x51, 0x0c,  // mov    dword ptr [r9 + 0ch],edx
                     0x5b,                    // pop    rbx
                     0xc3                     // ret
-                }
+                ]
                 // void __stdcall cpuid(int* cpuInfo, int eax, int ecx);
-                : new byte[]
-                {
+                :
+                [
                     0x56,                    // push   esi
                     0x53,                    // push   ebx
                     0x8b, 0x74, 0x24, 0x0c,  // mov    esi,dword ptr [esp + 0Ch]
@@ -246,7 +246,7 @@ namespace NativeCodeSharp.Intrinsics
                     0x5b,                    // pop    ebx
                     0x5e,                    // pop    esi
                     0xc2, 0x0c, 0x00         // ret    0Ch
-                });
+                ]);
         }
 
         /// <summary>
