@@ -294,22 +294,4 @@ namespace NativeCodeSharp.Intrinsics
 #endif  // SUPPORT_LIBRARY_IMPORT
         }
     }
-
-    /// <summary>
-    /// Delegate for cpuid.
-    /// </summary>
-    /// <param name="cpuInfo">Ouput paramter of cpuid.</param>
-    /// <param name="eax">4byte value for eax, an argument of cpuid</param>
-    /// <param name="ecx">4byte value for ecx, an argument of cpuid</param>
-    [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-    [SuppressUnmanagedCodeSecurity]
-    public delegate void CpuIdDelegate(out CpuInfo cpuInfo, uint eax, uint ecx = 0);
-
-    /// <summary>
-    /// Delegate for cpuid support check.
-    /// </summary>
-    /// <returns>Return true if cpuid is supported, otherwise false.</returns>
-    [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-    [SuppressUnmanagedCodeSecurity]
-    public delegate bool IsCpuIdSupportedDelegate();
 }
