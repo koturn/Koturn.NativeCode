@@ -1,6 +1,10 @@
 ﻿using System;
 
 
+#pragma warning disable IDE0079 // Remove unnecessary suppression
+#pragma warning disable CA1069 // Enums values should not be duplicated
+
+
 namespace NativeCodeSharp.Internals.Win32.Enums
 {
     /// <summary>
