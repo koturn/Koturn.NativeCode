@@ -297,7 +297,6 @@ namespace NativeCodeSharp.Intrinsics
         }
 
         /// <summary>
-        ///
         /// Check if given object is equivalent to this object.
         /// </summary>
         /// <param name="obj">An object to compare</param>
@@ -317,6 +316,28 @@ namespace NativeCodeSharp.Intrinsics
             {
                 _simdFlagValue = _simdFlagValue
             };
+        }
+
+        /// <summary>
+        /// Check if LHS is equivalent to RHS.
+        /// </summary>
+        /// <param name="left">LHS.</param>
+        /// <param name="right">RHS.</param>
+        /// <returns>True if LHS is equivalent to RHS, otherwise false.</returns>
+        public static bool operator ==(CpuSimdFeature left, CpuSimdFeature right)
+        {
+            return left.Equals(right);
+        }
+
+        /// <summary>
+        /// Check if LHS is not equivalent to RHS.
+        /// </summary>
+        /// <param name="left">LHS.</param>
+        /// <param name="right">RHS.</param>
+        /// <returns>True if LHS is not equivalent to RHS, otherwise false.</returns>
+        public static bool operator !=(CpuSimdFeature left, CpuSimdFeature right)
+        {
+            return !(left == right);
         }
         #endregion
     }
