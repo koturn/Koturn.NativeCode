@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace NativeCodeSharp.Internal.Win32.Enums
+namespace NativeCodeSharp.Internals.Win32.Enums
 {
     /// <summary>
     /// Enum for third argument of <see cref="VirtualAllocedMemory.SafeNativeMethods.VirtualFree(IntPtr, UIntPtr, VirtualFreeType)"/>.

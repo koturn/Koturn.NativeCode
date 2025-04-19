@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using NativeCodeSharp.Internal.Win32.Enums;
+using NativeCodeSharp.Internals.Win32.Enums;
 
 
-namespace NativeCodeSharp.Internal.Win32
+namespace NativeCodeSharp.Internals.Win32
 {
     /// <summary>
     /// <para>Contains information about the current computer system.</para>

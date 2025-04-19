@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Security;
 using System.Runtime.InteropServices;
-using NativeCodeSharp.Internal.Win32.Enums;
+using NativeCodeSharp.Internals.Win32.Enums;
 
 
-namespace NativeCodeSharp.Internal.Win32
+namespace NativeCodeSharp.Internals.Win32
 {
     /// <summary>
     /// <see cref="SafeHandle"/> for a memory which allocated with VirtualAlloc.

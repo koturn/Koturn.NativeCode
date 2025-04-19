@@ -1,4 +1,4 @@
-﻿namespace NativeCodeSharp.Internal.Win32.Enums
+﻿namespace NativeCodeSharp.Internals.Win32.Enums
 {
     /// <summary>
     /// Enum which represents processor architecture value.

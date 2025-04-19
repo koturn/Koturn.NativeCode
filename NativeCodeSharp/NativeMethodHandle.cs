@@ -4,8 +4,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Security;
 using NativeCodeSharp.Exceptions;
-using NativeCodeSharp.Internal.Win32;
-using NativeCodeSharp.Internal.Win32.Enums;
+using NativeCodeSharp.Internals.Win32;
+using NativeCodeSharp.Internals.Win32.Enums;
 
 
 namespace NativeCodeSharp

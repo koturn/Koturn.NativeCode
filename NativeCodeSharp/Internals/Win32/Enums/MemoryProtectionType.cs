@@ -1,7 +1,7 @@
-using System;
+﻿using System;
 
 
-namespace NativeCodeSharp.Internal.Win32.Enums
+namespace NativeCodeSharp.Internals.Win32.Enums
 {
     /// <summary>
     /// Enum for <see cref="NativeMethodHandle.SafeNativeMethods.VirtualAlloc(IntPtr, UIntPtr, VirtualAllocType, MemoryProtectionType)"/>
