@@ -1,4 +1,8 @@
-﻿using System;
+﻿#if NET7_0_OR_GREATER
+#    define SUPPORT_LIBRARY_IMPORT
+#endif  // NET7_0_OR_GREATER
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
@@ -117,7 +121,11 @@ namespace NativeCodeSharp
     /// <summary>
     /// This class provides utility function to dynamic native code generating methods.
     /// </summary>
+#if SUPPORT_LIBRARY_IMPORT
+    public static partial class NativeMethodHandle
+#else
     public static class NativeMethodHandle
+#endif  // SUPPORT_LIBRARY_IMPORT
     {
         /// <summary>
         /// Create native code delegate and wrap it into <see cref="NativeMethodHandle{TDelegate}"/> from given machine code.
@@ -226,14 +234,23 @@ namespace NativeCodeSharp
         /// Provides native methods.
         /// </summary>
         [SuppressUnmanagedCodeSecurity]
+#if SUPPORT_LIBRARY_IMPORT
+        internal static partial class SafeNativeMethods
+#else
         internal static class SafeNativeMethods
+#endif  // SUPPORT_LIBRARY_IMPORT
         {
             /// <summary>
             /// Gets a new Process component and associates it with the currently active process.
             /// </summary>
             /// <returns>A new Process component associated with the process resource that is running the calling application.</returns>
+#if SUPPORT_LIBRARY_IMPORT
+            [LibraryImport("kernel32.dll", EntryPoint = nameof(GetCurrentProcess))]
+            public static partial IntPtr GetCurrentProcess();
+#else
             [DllImport("kernel32.dll", EntryPoint = nameof(GetCurrentProcess), ExactSpelling = true)]
             public static extern IntPtr GetCurrentProcess();
+#endif  // SUPPORT_LIBRARY_IMPORT
 
             /// <summary>
             /// Flushes the instruction cache for the specified process.
@@ -243,9 +260,15 @@ namespace NativeCodeSharp
             /// <param name="regionSize">The size of the region to be flushed if the <paramref name="baseAddress"/> parameter is not IntPtr.Zero, in bytes.</param>
             /// <returns>If the function succeeds, the return value is nonzero. If the function fails,
             /// the return value is zero. To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.</returns>
+#if SUPPORT_LIBRARY_IMPORT
+            [LibraryImport("kernel32.dll", EntryPoint = nameof(FlushInstructionCache), SetLastError = true)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static partial bool FlushInstructionCache(IntPtr processHandle, IntPtr baseAddress, UIntPtr regionSize);
+#else
             [DllImport("kernel32.dll", EntryPoint = nameof(FlushInstructionCache), ExactSpelling = true, SetLastError = true)]
             [return: MarshalAs(UnmanagedType.Bool)]
             public static extern bool FlushInstructionCache(IntPtr processHandle, IntPtr baseAddress, UIntPtr regionSize);
+#endif  // SUPPORT_LIBRARY_IMPORT
 
             /// <summary>
             /// Changes the protection on a region of committed pages in the virtual address space of the calling process.
@@ -255,9 +278,15 @@ namespace NativeCodeSharp
             /// <param name="protectionType">The memory protection option.</param>
             /// <param name="oldProtectionType">A pointer to a variable that receives the previous access protection value of the first page in the specified region of pages. If this parameter is NULL or does not point to a valid variable, the function fails.</param>
             /// <returns>If the function succeeds, the return value is nonzero.  If the function fails, the return value is zero. To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.</returns>
+#if SUPPORT_LIBRARY_IMPORT
+            [LibraryImport("kernel32.dll", EntryPoint = nameof(VirtualProtect), SetLastError = true)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static partial bool VirtualProtect(IntPtr address, UIntPtr size, MemoryProtectionType protectionType, out MemoryProtectionType oldProtectionType);
+#else
             [DllImport("kernel32.dll", EntryPoint = nameof(VirtualProtect), ExactSpelling = true, SetLastError = true)]
             [return: MarshalAs(UnmanagedType.Bool)]
             public static extern bool VirtualProtect(IntPtr address, UIntPtr size, MemoryProtectionType protectionType, out MemoryProtectionType oldProtectionType);
+#endif  // SUPPORT_LIBRARY_IMPORT
 
             /// <summary>
             /// <para>Reserves, commits, or changes the state of a region of pages in the virtual address space of the calling process.</para>
@@ -268,8 +297,13 @@ namespace NativeCodeSharp
             /// <param name="allocType">The type of memory allocation.</param>
             /// <param name="protectionType">The memory protection for the region of pages to be allocated.</param>
             /// <returns>If the function succeeds, the return value is <see cref="VirtualAllocedMemory"/> instance which is the wrapper of the base address of the allocated region of pages. If the function fails, the return value is null. To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.</returns>
+#if SUPPORT_LIBRARY_IMPORT
+            [LibraryImport("kernel32.dll", EntryPoint = nameof(VirtualAlloc), SetLastError = true)]
+            public static partial VirtualAllocedMemory VirtualAlloc(IntPtr address, UIntPtr size, VirtualAllocType allocType, MemoryProtectionType protectionType);
+#else
             [DllImport("kernel32.dll", EntryPoint = nameof(VirtualAlloc), ExactSpelling = true, SetLastError = true)]
             public static extern VirtualAllocedMemory VirtualAlloc(IntPtr address, UIntPtr size, VirtualAllocType allocType, MemoryProtectionType protectionType);
+#endif  // SUPPORT_LIBRARY_IMPORT
 
             /// <summary>
             /// Copy from an unmanaged memory to another unmanaged memory.
@@ -277,8 +311,13 @@ namespace NativeCodeSharp
             /// <param name="dst">Destination pointer.</param>
             /// <param name="src">Source pointer.</param>
             /// <param name="size">Size of copying.</param>
+#if SUPPORT_LIBRARY_IMPORT
+            [LibraryImport("kernel32.dll", EntryPoint = "RtlCopyMemory")]
+            public static partial void CopyMemory(IntPtr dst, IntPtr src, int size);
+#else
             [DllImport("kernel32.dll", EntryPoint = "RtlCopyMemory", ExactSpelling = true)]
             public static extern void CopyMemory(IntPtr dst, IntPtr src, int size);
+#endif  // SUPPORT_LIBRARY_IMPORT
         }
     }
 }

@@ -1,4 +1,8 @@
-﻿using System;
+﻿#if NET7_0_OR_GREATER
+#    define SUPPORT_LIBRARY_IMPORT
+#endif  // NET7_0_OR_GREATER
+
+using System;
 using System.Security;
 using System.Runtime.InteropServices;
 using NativeCodeSharp.Internals.Win32;
@@ -10,7 +14,11 @@ namespace NativeCodeSharp.Intrinsics
     /// <summary>
     /// Utility class for intrinsic functions.
     /// </summary>
+#if SUPPORT_LIBRARY_IMPORT
+    public static partial class Intrinsic
+#else
     public static class Intrinsic
+#endif  // SUPPORT_LIBRARY_IMPORT
     {
         #region check cpuid
         /// <summary>
@@ -265,15 +273,25 @@ namespace NativeCodeSharp.Intrinsics
         /// Provides native methods.
         /// </summary>
         [SuppressUnmanagedCodeSecurity]
+#if SUPPORT_LIBRARY_IMPORT
+        internal static partial class SafeNativeMethods
+#else
         internal static class SafeNativeMethods
+#endif  // SUPPORT_LIBRARY_IMPORT
         {
             /// <summary>
             /// Retrieves information about the current system.
             /// </summary>
             /// <param name="info">A reference to a <see cref="SystemInfo"/> structure that receives the information.</param>
+#if SUPPORT_LIBRARY_IMPORT
+            [LibraryImport("kernel32.dll", EntryPoint = nameof(GetSystemInfo), SetLastError = false)]
+            [SuppressUnmanagedCodeSecurity]
+            public static partial void GetSystemInfo(out SystemInfo info);
+#else
             [DllImport("kernel32.dll", EntryPoint = nameof(GetSystemInfo), ExactSpelling = true, SetLastError = false)]
             [SuppressUnmanagedCodeSecurity]
             public static extern void GetSystemInfo(out SystemInfo info);
+#endif  // SUPPORT_LIBRARY_IMPORT
         }
     }
 
