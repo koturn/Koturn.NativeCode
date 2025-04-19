@@ -51,7 +51,7 @@ namespace NativeCodeSharp.Internal.Win32
         public ProcessorType ProcessorType { get; }
         /// <summary>
         /// <para>The granularity for the starting address at which virtual memory can be allocated.</para>
-        /// <para>For more information, see <see cref="Kernel32.VirtualAlloc(IntPtr, UIntPtr, VirtualAllocType, MemoryProtectionType)"/>.</para>
+        /// <para>For more information, see <see cref="NativeMethodHandle.SafeNativeMethods.VirtualAlloc(IntPtr, UIntPtr, VirtualAllocType, MemoryProtectionType)"/>.</para>
         /// </summary>
         public uint AllocationGranularity { get; }
         /// <summary>

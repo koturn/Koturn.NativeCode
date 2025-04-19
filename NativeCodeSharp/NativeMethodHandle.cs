@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Runtime.InteropServices;
-
+using System.Security;
 using NativeCodeSharp.Exceptions;
 using NativeCodeSharp.Internal.Win32;
 
@@ -64,7 +63,7 @@ namespace NativeCodeSharp
         /// <returns>clone of this object.</returns>
         public object Clone()
         {
-            var vam = Kernel32.VirtualAlloc(
+            var vam = NativeMethodHandle.SafeNativeMethods.VirtualAlloc(
                 IntPtr.Zero,
                 (UIntPtr)CodeSize,
                 VirtualAllocType.Commit,
@@ -75,7 +74,7 @@ namespace NativeCodeSharp
                     Marshal.GetLastWin32Error(),
                     "Failed to allocate memory with VirtualAlloc.");
             }
-            Kernel32.CopyMemory(
+            NativeMethodHandle.SafeNativeMethods.CopyMemory(
                 vam.DangerousGetHandle(),
                 _unmanagedMemory.DangerousGetHandle(),
                 CodeSize);
@@ -134,7 +133,7 @@ namespace NativeCodeSharp
             {
                 ThrowArgumentNullException(nameof(code));
             }
-            var vam = Kernel32.VirtualAlloc(
+            var vam = SafeNativeMethods.VirtualAlloc(
                 IntPtr.Zero,
                 (UIntPtr)code.Length,
                 VirtualAllocType.Commit,
@@ -170,14 +169,14 @@ namespace NativeCodeSharp
         /// <summary>
         /// Change protection type of vartual allocated memory and flush cache.
         /// </summary>
-        /// <param name="vam">Memory handle allocated by <see cref="Kernel32.VirtualAlloc"/>.</param>
+        /// <param name="vam">Memory handle allocated by <see cref="SafeNativeMethods.VirtualAlloc"/>.</param>
         /// <param name="codeSize">Size of native code.</param>
         internal static void ChangeProtectionAndFlush(VirtualAllocedMemory vam, int codeSize)
         {
             var addr = vam.DangerousGetHandle();
 
             // Give executable permission to unmanaged memroy.
-            if (!Kernel32.VirtualProtect(
+            if (!SafeNativeMethods.VirtualProtect(
                 addr,
                 (UIntPtr)codeSize,
                 MemoryProtectionType.Execute,
@@ -190,8 +189,8 @@ namespace NativeCodeSharp
 
             // GetCurrentProcess returns a pseudo handle.
             // You need not to free a pseudo handle by ClodeHandle.
-            if (!Kernel32.FlushInstructionCache(
-                Kernel32.GetCurrentProcess(),
+            if (!SafeNativeMethods.FlushInstructionCache(
+                SafeNativeMethods.GetCurrentProcess(),
                 addr,
                 (UIntPtr)codeSize))
             {
@@ -219,6 +218,66 @@ namespace NativeCodeSharp
         internal static void ThrowMemoryOperationException(int error, string message)
         {
             throw new MemoryOperationException(error, message);
+        }
+
+
+        /// <summary>
+        /// Provides native methods.
+        /// </summary>
+        [SuppressUnmanagedCodeSecurity]
+        internal static class SafeNativeMethods
+        {
+            /// <summary>
+            /// Gets a new Process component and associates it with the currently active process.
+            /// </summary>
+            /// <returns>A new Process component associated with the process resource that is running the calling application.</returns>
+            [DllImport("kernel32.dll", EntryPoint = nameof(GetCurrentProcess), ExactSpelling = true)]
+            public static extern IntPtr GetCurrentProcess();
+
+            /// <summary>
+            /// Flushes the instruction cache for the specified process.
+            /// </summary>
+            /// <param name="processHandle">A handle to a process whose instruction cache is to be flushed.</param>
+            /// <param name="baseAddress">A pointer to the base of the region to be flushed. This parameter can be IntPtr.Zero.</param>
+            /// <param name="regionSize">The size of the region to be flushed if the <paramref name="baseAddress"/> parameter is not IntPtr.Zero, in bytes.</param>
+            /// <returns>If the function succeeds, the return value is nonzero. If the function fails,
+            /// the return value is zero. To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.</returns>
+            [DllImport("kernel32.dll", EntryPoint = nameof(FlushInstructionCache), ExactSpelling = true, SetLastError = true)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool FlushInstructionCache(IntPtr processHandle, IntPtr baseAddress, UIntPtr regionSize);
+
+            /// <summary>
+            /// Changes the protection on a region of committed pages in the virtual address space of the calling process.
+            /// </summary>
+            /// <param name="address">A pointer an address that describes the starting page of the region of pages whose access protection attributes are to be changed.</param>
+            /// <param name="size">The size of the region whose access protection attributes are to be changed, in bytes.</param>
+            /// <param name="protectionType">The memory protection option.</param>
+            /// <param name="oldProtectionType">A pointer to a variable that receives the previous access protection value of the first page in the specified region of pages. If this parameter is NULL or does not point to a valid variable, the function fails.</param>
+            /// <returns>If the function succeeds, the return value is nonzero.  If the function fails, the return value is zero. To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.</returns>
+            [DllImport("kernel32.dll", EntryPoint = nameof(VirtualProtect), ExactSpelling = true, SetLastError = true)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool VirtualProtect(IntPtr address, UIntPtr size, MemoryProtectionType protectionType, out MemoryProtectionType oldProtectionType);
+
+            /// <summary>
+            /// <para>Reserves, commits, or changes the state of a region of pages in the virtual address space of the calling process.</para>
+            /// <para>Memory allocated by this function is automatically initialized to zero.</para>
+            /// </summary>
+            /// <param name="address">The starting address of the region to allocate. </param>
+            /// <param name="size">The size of the region, in bytes.</param>
+            /// <param name="allocType">The type of memory allocation.</param>
+            /// <param name="protectionType">The memory protection for the region of pages to be allocated.</param>
+            /// <returns>If the function succeeds, the return value is <see cref="VirtualAllocedMemory"/> instance which is the wrapper of the base address of the allocated region of pages. If the function fails, the return value is null. To get extended error information, call <see cref="Marshal.GetLastWin32Error"/>.</returns>
+            [DllImport("kernel32.dll", EntryPoint = nameof(VirtualAlloc), ExactSpelling = true, SetLastError = true)]
+            public static extern VirtualAllocedMemory VirtualAlloc(IntPtr address, UIntPtr size, VirtualAllocType allocType, MemoryProtectionType protectionType);
+
+            /// <summary>
+            /// Copy from an unmanaged memory to another unmanaged memory.
+            /// </summary>
+            /// <param name="dst">Destination pointer.</param>
+            /// <param name="src">Source pointer.</param>
+            /// <param name="size">Size of copying.</param>
+            [DllImport("kernel32.dll", EntryPoint = "RtlCopyMemory", ExactSpelling = true)]
+            public static extern void CopyMemory(IntPtr dst, IntPtr src, int size);
         }
     }
 }

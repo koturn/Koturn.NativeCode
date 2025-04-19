@@ -121,7 +121,7 @@ namespace NativeCodeSharp.Intrinsics
         /// <returns>True if your system is supported, otherwise false.</returns>
         private static bool IsSupportedArchitecture()
         {
-            Kernel32.GetSystemInfo(out var systemInfo);
+            SafeNativeMethods.GetSystemInfo(out var systemInfo);
             return systemInfo.ProcessorArchitecture == ProcessorArchitecture.Intel
                 || systemInfo.ProcessorArchitecture == ProcessorArchitecture.Amd64;
         }
@@ -259,6 +259,22 @@ namespace NativeCodeSharp.Intrinsics
         [SuppressUnmanagedCodeSecurity]
         private unsafe delegate void UnsafeCpuIdDelegate(uint* cpuInfo, uint eax, uint ecx = 0);
         #endregion
+
+
+        /// <summary>
+        /// Provides native methods.
+        /// </summary>
+        [SuppressUnmanagedCodeSecurity]
+        internal static class SafeNativeMethods
+        {
+            /// <summary>
+            /// Retrieves information about the current system.
+            /// </summary>
+            /// <param name="info">A reference to a <see cref="SystemInfo"/> structure that receives the information.</param>
+            [DllImport("kernel32.dll", EntryPoint = nameof(GetSystemInfo), ExactSpelling = true, SetLastError = false)]
+            [SuppressUnmanagedCodeSecurity]
+            public static extern void GetSystemInfo(out SystemInfo info);
+        }
     }
 
     /// <summary>
