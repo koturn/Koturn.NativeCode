@@ -62,8 +62,8 @@ namespace NativeCodeSharp.Exceptions
         /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
         /// <param name="context">The <see cref="StreamingContext"/> that contains contextual information about the source or destination. </param>
 #if NET8_0_OR_GREATER
-        [Obsolete(DiagnosticId = "SYSLIB0051")]
-#endif
+        [Obsolete("This ctor is only for .NET Framework", DiagnosticId = "SYSLIB0051")]
+#endif  // NET8_0_OR_GREATER
         protected MemoryOperationException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
