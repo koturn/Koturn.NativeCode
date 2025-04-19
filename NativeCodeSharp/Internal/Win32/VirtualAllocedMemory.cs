@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security;
 using System.Runtime.InteropServices;
+using NativeCodeSharp.Internal.Win32.Enums;
 
 
 namespace NativeCodeSharp.Internal.Win32

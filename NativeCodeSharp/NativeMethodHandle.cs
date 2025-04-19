@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 using NativeCodeSharp.Exceptions;
 using NativeCodeSharp.Internal.Win32;
+using NativeCodeSharp.Internal.Win32.Enums;
 
 
 namespace NativeCodeSharp
