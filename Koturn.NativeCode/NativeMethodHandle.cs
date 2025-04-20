@@ -37,7 +37,7 @@ namespace Koturn.NativeCode
         /// <summary>
         /// A flag property which indicates this instance is disposed or not.
         /// </summary>
-        public bool IsDisposed { get; private set; }
+        public bool IsDisposed { get; private set; } = false;
         #endregion
 
         #region private members
@@ -57,7 +57,6 @@ namespace Koturn.NativeCode
         {
             Method = Marshal.GetDelegateForFunctionPointer<TDelegate>(unmanagedMemory.DangerousGetHandle());
             CodeSize = codeSize;
-            IsDisposed = false;
             _unmanagedMemory = unmanagedMemory;
         }
         #endregion
