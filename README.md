@@ -1,9 +1,9 @@
 Koturn.NativeCode
 =================
 
-[![Test status](https://ci.appveyor.com/api/projects/status/g1w933v2l517ap7q/branch/main?svg=true)](https://ci.appveyor.com/project/koturn/koturn-nativecode "AppVeyor | koturn/Koturn.NativeCode")
+[![Test status](https://ci.appveyor.com/api/projects/status/l60s1opgar23v9vq/branch/main?svg=true)](https://ci.appveyor.com/project/koturn/koturn-nativecode/branch/main)
 
-Native code method generator for .NET Framework.
+Native code method generator for .NET / .NET Framework.
 
 
 ## Example
