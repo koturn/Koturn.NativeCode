@@ -1,22 +1,18 @@
-version: 1.0.{build}
-image: Visual Studio 2019
+version: 2.0.0.{build}
+image: Visual Studio 2022
+init:
+- cmd: '"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\VsDevCmd.bat"'
 install:
-- cmd: '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"'
+- cmd: nmake restore
 build_script:
 - cmd: >-
-    nuget restore
+    nmake
 
-    msbuild /nologo /m /p:Configuration=Release;Platform="Any CPU" NativeCodeSharp.sln
-
-    mkdir Artifacts\NativeCodeSharp
-
-    copy NativeCodeSharp\bin\Release\netstandard2.0\NativeCodeSharp.dll Artifacts\NativeCodeSharp\
-
-    copy NativeCodeSharp\bin\Release\netstandard2.0\NativeCodeSharp.pdb Artifacts\NativeCodeSharp\
-
-    cd Artifacts
-
-    7z a -mx=9 -r NativeCodeSharp.zip NativeCodeSharp\
+    nmake deploy
 artifacts:
-- path: Artifacts\NativeCodeSharp.zip
-  name: NativeCodeSharp
+- path: Koturn.NativeCode-netstandard2.0.zip
+  name: .NET Standard 2.0 binary
+- path: Koturn.NativeCode-net8.0.zip
+  name: .NET Standard 8.0 binary
+- path: Koturn.NativeCode-net9.0.zip
+  name: .NET Standard 9.0 binary

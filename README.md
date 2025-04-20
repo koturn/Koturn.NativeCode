@@ -209,8 +209,14 @@ namespace NativeCodeMain
 ## Build
 
 ```shell
-> msbuild /nologo /m /t:restore /p:Configuration=Release;Platform="Any CPU" Koturn.NativeCode.sln
-> msbuild /nologo /m /p:Configuration=Release;Platform="Any CPU" Koturn.NativeCode.sln
+> nmake restore
+> nmake
+```
+
+## Deploy
+
+```shell
+> nmake deploy
 ```
 
 
