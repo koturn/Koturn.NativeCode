@@ -27,6 +27,10 @@ namespace Koturn.NativeCode
         /// </summary>
         public TDelegate Method { get; }
         /// <summary>
+        /// Function pointer.
+        /// </summary>
+        public IntPtr FunctionPointer => _unmanagedMemory.DangerousGetHandle();
+        /// <summary>
         /// Size of native code
         /// </summary>
         public int CodeSize { get; }
