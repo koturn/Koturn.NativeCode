@@ -9,6 +9,8 @@ build_script:
     nmake
 
     nmake deploy
+test_script:
+- cmd: nmake test
 artifacts:
 - path: Koturn.NativeCode-netstandard2.0.zip
   name: .NET Standard 2.0 binary

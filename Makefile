@@ -22,6 +22,9 @@ build:
 restore:
 	dotnet restore $(SOLUTION_FILE)
 
+test:
+	dotnet test --logger:Console;verbosity=detailed
+
 deploy: deploy-$(TARGET_NETSTD20) deploy-$(TARGET_NET6) deploy-$(TARGET_NET8) deploy-$(TARGET_NET9)
 
 deploy-$(TARGET_NETSTD20):
