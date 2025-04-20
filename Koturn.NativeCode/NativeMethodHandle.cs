@@ -51,9 +51,7 @@ namespace Koturn.NativeCode
         /// <param name="codeSize">Size of native code</param>
         internal NativeMethodHandle(VirtualAllocedMemory unmanagedMemory, int codeSize)
         {
-            Method = (TDelegate)Marshal.GetDelegateForFunctionPointer(
-                unmanagedMemory.DangerousGetHandle(),
-                typeof(TDelegate));
+            Method = Marshal.GetDelegateForFunctionPointer<TDelegate>(unmanagedMemory.DangerousGetHandle());
             CodeSize = codeSize;
             IsDisposed = false;
             _unmanagedMemory = unmanagedMemory;
