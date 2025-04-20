@@ -12,10 +12,10 @@ namespace Koturn.NativeCode.Tests
     public class NativeMethodHandleTest
     {
         /// <summary>
-        /// Test method for <see cref="NativeMethodHandle.Create{TDelegate}(byte[])"/>.
+        /// Test method for <see cref="NativeMethodHandle.Create{TDelegate}(byte[])"/> and <see cref="NativeMethodHandle{TDelegate}.Method"/>.
         /// </summary>
         [TestMethod]
-        public void Create()
+        public void Create01()
         {
             const int ArraySize = 32;
             var src1 = new float[ArraySize];
@@ -31,6 +31,37 @@ namespace Koturn.NativeCode.Tests
             using (var mh = CreateInnerProductMethodHandle())
             {
                 mh.Method(dst, src1, src2, dst.Length);
+            }
+
+            foreach (var e in dst)
+            {
+                Console.Write($"{e} ");
+            }
+        }
+
+        /// <summary>
+        /// Test method for <see cref="NativeMethodHandle.Create{TDelegate}(byte[])"/> and <see cref="NativeMethodHandle{TDelegate}.FunctionPointer"/>.
+        /// </summary>
+        [TestMethod]
+        public void Create02()
+        {
+            const int ArraySize = 32;
+            var src1 = new float[ArraySize];
+            var src2 = new float[ArraySize];
+            for (int i = 0; i < ArraySize; i++)
+            {
+                src1[i] = i;
+                src2[i] = i;
+            }
+
+            var dst = new float[ArraySize];
+
+            using (var mh = CreateInnerProductMethodHandle())
+            {
+                unsafe
+                {
+                    ((delegate*<float[], float[], float[], int, void>)mh.FunctionPointer)(dst, src1, src2, dst.Length);
+                }
             }
 
             foreach (var e in dst)

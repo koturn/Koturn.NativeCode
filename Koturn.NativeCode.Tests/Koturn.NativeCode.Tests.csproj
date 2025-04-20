@@ -4,6 +4,7 @@
     <TargetFrameworks>net9.0;net481</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <Title>Koturn.NativeCode.Tests</Title>
     <Authors>koturn</Authors>
     <Company>koturn</Company>
