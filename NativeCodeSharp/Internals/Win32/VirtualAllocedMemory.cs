@@ -1,4 +1,4 @@
-﻿#if NET7_0_OR_GREATER
+#if NET7_0_OR_GREATER
 #    define SUPPORT_LIBRARY_IMPORT
 #endif  // NET7_0_OR_GREATER
 

@@ -1,4 +1,4 @@
-﻿namespace NativeCodeSharp.Intrinsics
+namespace NativeCodeSharp.Intrinsics
 {
     /// <summary>
     /// Utility class for SIMD intructions

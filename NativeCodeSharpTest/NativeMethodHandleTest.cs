@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using System.Security;
 
@@ -98,7 +98,7 @@ namespace NativeCodeSharpTest
             //     int size) noexcept
             // {
             //     constexpr auto stride = static_cast<int>(sizeof(__m128) / sizeof(float));
-            // 
+            //
             //     for (int i = 0, im = size - stride; i <= im; i += stride) {
             //         _mm_storeu_ps(
             //             &dst[i],
@@ -106,12 +106,12 @@ namespace NativeCodeSharpTest
             //                 _mm_loadu_ps(&src1[i]),
             //                 _mm_loadu_ps(&src2[i])));
             //     }
-            // 
+            //
             //     const auto remSize = size % stride;
             //     if (remSize == 0) {
             //         return;
             //     }
-            // 
+            //
             //     const auto offset = size - remSize;
             //     for (int i = offset; i < size; i++) {
             //         dst[i] = src1[i] * src2[i];
