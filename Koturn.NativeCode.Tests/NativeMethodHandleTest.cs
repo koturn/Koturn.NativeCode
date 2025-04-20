@@ -2,12 +2,8 @@ using System;
 using System.Runtime.InteropServices;
 using System.Security;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Koturn.NativeCode;
-
-
-namespace NativeCodeSharpTest
+namespace Koturn.NativeCode.Tests
 {
     /// <summary>
     /// Test class for <see cref="NativeMethodHandle"/>
