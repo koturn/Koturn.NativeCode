@@ -4,7 +4,7 @@ using System.Security;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using NativeCodeSharp;
+using Koturn.NativeCode;
 
 
 namespace NativeCodeSharpTest

@@ -8,8 +8,8 @@
     <ProjectGuid>{64D50B92-E858-44FC-AD36-4E8552316B6B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NativeCodeSharpTest</RootNamespace>
-    <AssemblyName>NativeCodeSharpTest</AssemblyName>
+    <RootNamespace>Koturn.NativeCode.Tests</RootNamespace>
+    <AssemblyName>Koturn.NativeCode.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -58,9 +58,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NativeCodeSharp\NativeCodeSharp.csproj">
+    <ProjectReference Include="..\Koturn.NativeCode\Koturn.NativeCode.csproj">
       <Project>{21557920-be91-42a5-866c-04570dff5ab8}</Project>
-      <Name>NativeCodeSharp</Name>
+      <Name>Koturn.NativeCode</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

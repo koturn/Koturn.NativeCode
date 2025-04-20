@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using NativeCodeSharp.Enums;
+using Koturn.NativeCode.Enums;
 
 
-namespace NativeCodeSharp.Intrinsics
+namespace Koturn.NativeCode.Intrinsics
 {
     /// <summary>
     /// Structure with information on SIMD instructions available on CPU.

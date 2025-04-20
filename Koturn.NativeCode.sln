@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NativeCodeSharp", "NativeCodeSharp\NativeCodeSharp.csproj", "{177B8D39-3D3E-4B74-822A-155757E34090}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Koturn.NativeCode", "Koturn.NativeCode\Koturn.NativeCode.csproj", "{177B8D39-3D3E-4B74-822A-155757E34090}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NativeCodeSharpTest", "NativeCodeSharpTest\NativeCodeSharpTest.csproj", "{64D50B92-E858-44FC-AD36-4E8552316B6B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Koturn.NativeCode.Tests", "Koturn.NativeCode.Tests\Koturn.NativeCode.Tests.csproj", "{64D50B92-E858-44FC-AD36-4E8552316B6B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D0A085B1-D02B-428A-BDBD-2EE62AEA805E}"
 	ProjectSection(SolutionItems) = preProject

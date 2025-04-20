@@ -1,7 +1,7 @@
 using System;
 
 
-namespace NativeCodeSharp.Enums
+namespace Koturn.NativeCode.Enums
 {
     /// <summary>
     /// Flag enum for SIMD features

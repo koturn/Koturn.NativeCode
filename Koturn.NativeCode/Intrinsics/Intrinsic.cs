@@ -5,11 +5,11 @@
 using System;
 using System.Security;
 using System.Runtime.InteropServices;
-using NativeCodeSharp.Internals.Win32;
-using NativeCodeSharp.Internals.Win32.Enums;
+using Koturn.NativeCode.Internals.Win32;
+using Koturn.NativeCode.Internals.Win32.Enums;
 
 
-namespace NativeCodeSharp.Intrinsics
+namespace Koturn.NativeCode.Intrinsics
 {
     /// <summary>
     /// Utility class for intrinsic functions.

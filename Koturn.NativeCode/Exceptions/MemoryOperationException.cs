@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.Serialization;
 
 
-namespace NativeCodeSharp.Exceptions
+namespace Koturn.NativeCode.Exceptions
 {
     /// <summary>
     /// An exception class for memory operation.

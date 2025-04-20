@@ -1,4 +1,4 @@
-﻿namespace NativeCodeSharp.Internals.Win32.Enums
+namespace Koturn.NativeCode.Internals.Win32.Enums
 {
     /// <summary>
     /// Enum which represents processor architecture.

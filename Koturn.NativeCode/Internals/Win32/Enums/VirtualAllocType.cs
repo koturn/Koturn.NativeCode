@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 
 
-namespace NativeCodeSharp.Internals.Win32.Enums
+namespace Koturn.NativeCode.Internals.Win32.Enums
 {
     /// <summary>
     /// Enum for third argument of <see cref="NativeMethodHandle.SafeNativeMethods.VirtualAlloc(IntPtr, UIntPtr, VirtualAllocType, MemoryProtectionType)"/>.

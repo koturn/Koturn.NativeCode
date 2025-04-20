@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 
 
-namespace NativeCodeSharp.Intrinsics
+namespace Koturn.NativeCode.Intrinsics
 {
     /// <summary>
     /// Delegate for cpuid support check.

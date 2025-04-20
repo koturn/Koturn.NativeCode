@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 
 
-namespace NativeCodeSharp.Intrinsics
+namespace Koturn.NativeCode.Intrinsics
 {
     /// <summary>
     /// Structure for cpuid

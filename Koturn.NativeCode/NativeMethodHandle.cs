@@ -7,12 +7,12 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Security;
-using NativeCodeSharp.Exceptions;
-using NativeCodeSharp.Internals.Win32;
-using NativeCodeSharp.Internals.Win32.Enums;
+using Koturn.NativeCode.Exceptions;
+using Koturn.NativeCode.Internals.Win32;
+using Koturn.NativeCode.Internals.Win32.Enums;
 
 
-namespace NativeCodeSharp
+namespace Koturn.NativeCode
 {
     /// <summary>
     /// Native method handle class

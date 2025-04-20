@@ -1,4 +1,4 @@
-namespace NativeCodeSharp.Intrinsics
+namespace Koturn.NativeCode.Intrinsics
 {
     /// <summary>
     /// Utility class for SIMD intructions

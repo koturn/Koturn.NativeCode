@@ -1,7 +1,7 @@
-NativeCodeSharp
-===============
+Koturn.NativeCode
+=================
 
-[![Test status](https://ci.appveyor.com/api/projects/status/g1w933v2l517ap7q/branch/main?svg=true)](https://ci.appveyor.com/project/koturn/nativecodesharp "AppVeyor | koturn/NativeCodeSharp")
+[![Test status](https://ci.appveyor.com/api/projects/status/g1w933v2l517ap7q/branch/main?svg=true)](https://ci.appveyor.com/project/koturn/koturn-nativecode "AppVeyor | koturn/Koturn.NativeCode")
 
 Native code method generator for .NET Framework.
 
@@ -15,10 +15,10 @@ using System;
 using System.Runtime.InteropServices;
 using System.Security;
 
-using NativeCodeSharp;
+using Koturn.NativeCode;
 
 
-namespace NativeCodeSharpMain
+namespace NativeCodeMain
 {
     class Program
     {
@@ -209,8 +209,8 @@ namespace NativeCodeSharpMain
 ## Build
 
 ```shell
-> msbuild /nologo /m /t:restore /p:Configuration=Release;Platform="Any CPU" NativeCodeSharp.sln
-> msbuild /nologo /m /p:Configuration=Release;Platform="Any CPU" NativeCodeSharp.sln
+> msbuild /nologo /m /t:restore /p:Configuration=Release;Platform="Any CPU" Koturn.NativeCode.sln
+> msbuild /nologo /m /p:Configuration=Release;Platform="Any CPU" Koturn.NativeCode.sln
 ```
 
 
